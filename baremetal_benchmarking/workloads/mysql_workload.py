@@ -86,13 +86,13 @@ class MySqlWorkload():
         operation_cmd = ''
         if sysbench_cmd == 'prepare' or sysbench_cmd == 'cleanup':
             operation_cmd = f"sysbench --db-driver=mysql --mysql-host=127.0.0.1 --mysql-port=3306 --mysql-user=root --mysql-db=test_db \
-                                --time=90 --report-interval=5 {tcd['operation']} --tables=8 --table_size=100000 \
+                                --time=90 --report-interval=5 {tcd['operation']} --tables=8 --table_size=5000000 \
                                 --threads={os.environ['CORES_COUNT']} {sysbench_cmd}"
         elif sysbench_cmd == 'run':
             results_dir = os.path.join(PERF_RESULTS_DIR, tcd['workload_name'], tcd['test_name'])
             output_file_name = results_dir + "/" + tcd['test_name'] + '_' + e_mode + '_' + str(iteration) + '.log'
             operation_cmd = f"sysbench --db-driver=mysql --mysql-host=127.0.0.1 --mysql-port=3306 --mysql-user=root --mysql-db=test_db \
-                                --time=90 --report-interval=5 {tcd['operation']} --tables=8 --table_size=100000 \
+                                --time=90 --report-interval=5 {tcd['operation']} --tables=8 --table_size=5000000 \
                                 --threads={tcd['threads']} {sysbench_cmd} | tee {output_file_name}"
         else:
             raise Exception("\n-- Invalid MySql operation command requested!!")
